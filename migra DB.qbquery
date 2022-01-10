@@ -1,0 +1,62 @@
+﻿
+
+SELECT qq.idmiembro, qq.nombre, qq.apellido, qq.direccion, qq.telefono, qq.estadocivil, qq.bautizado, qq.oficio, qq.observaciones, qq.foto,
+
+CONCAT(qq.Ndia2, '-', qq.Nmes2, '-', qq.Nanio2) fechaNacimiento,
+qq.localidad, qq.provincia, qq.sexo, qq.celular, qq.dni, qq.cpostal, qq.mail, qq.nacionalidad, qq.conyuge, qq.hijos, qq.conyugecreyente,
+
+CONCAT(qq.Cdia2, '-', qq.Cmes2, '-', qq.Canio2) FConversion,
+qq.fbautismo,
+qq.bes, qq.iglesiaproviene, qq.miembro, qq.fmiembro, qq.actividades, qq.estudios, qq.estudiosB, qq.foto64
+
+
+FROM
+  (SELECT *,
+      CASE WHEN LENGTH(q.Ndia) < 2  THEN CONCAT('0', q.Ndia) ELSE q.Ndia END Ndia2,
+      CASE WHEN LENGTH(q.Nmes) < 2  THEN CONCAT('0', q.Nmes) ELSE q.Nmes END Nmes2,
+      q.Nanio Nanio2
+
+      CASE WHEN LENGTH(q.Cdia) < 2  THEN CONCAT('0', q.Cdia) ELSE q.Cdia END Cdia2,
+      CASE WHEN LENGTH(q.Cmes) < 2  THEN CONCAT('0', q.Cmes) ELSE q.Cmes END Cmes2,
+      q.Canio Canio2
+
+   FROM
+    (SELECT idMiembro, dni, nombre, apellido, direccion, localidad, provincia, cpostal, nacionalidad, sexo, EstadoCivil, conyuge, conyugeCreyente, hijos, oficio, telefono, celular, mail, miembro, Fmiembro, bautizado, FBautismo, BES, fconversion, iglesiaProviene, estudios, estudiosb, actividades, observaciones, foto, foto64,
+      /*Fecha Nacimiento */
+      CASE
+          WHEN locate('/',fechaNacimiento) > 0 THEN substring(fechaNacimiento,1,(locate('/',fechaNacimiento)-1))
+          WHEN locate('-',fechaNacimiento) > 0 THEN substring(fechaNacimiento,9,2)
+          ELSE NULL
+      END Ndia,
+      CASE
+          WHEN locate('/',fechaNacimiento) > 0 THEN substring(fechaNacimiento, (locate('/', fechaNacimiento) +1), locate('/',substring(fechaNacimiento,locate('/',fechaNacimiento)+1))-1)
+          WHEN locate('-',fechaNacimiento) > 0 THEN substring(fechaNacimiento,6,2)
+          ELSE NULL
+      END Nmes,
+      CASE
+          WHEN locate('/', fechaNacimiento) > 0 THEN RIGHT(fechaNacimiento, 4)
+          WHEN locate('-',fechaNacimiento) > 0 THEN substring(fechaNacimiento,1,4)
+          ELSE NULL
+      END Nanio
+      /*Fconversion*/
+      CASE
+          WHEN locate('/',Fconversion) > 0 THEN substring(Fconversion,1,(locate('/',Fconversion)-1))
+          WHEN locate('-',Fconversion) > 0 THEN substring(Fconversion,9,2)
+          ELSE NULL
+      END Cdia,
+      CASE
+          WHEN locate('/',Fconversion) > 0 THEN substring(Fconversion, (locate('/', Fconversion) +1), locate('/',substring(Fconversion,locate('/',Fconversion)+1))-1)
+          WHEN locate('-',Fconversion) > 0 THEN substring(Fconversion,6,2)
+          ELSE NULL
+      END Cmes,
+      CASE
+          WHEN locate('/', Fconversion) > 0 THEN RIGHT(Fconversion, 4)
+          WHEN locate('-',Fconversion) > 0 THEN substring(Fconversion,1,4)
+          ELSE NULL
+      END Canio
+
+
+
+      FROM ppa.miembros m
+    )q
+  )qq;
