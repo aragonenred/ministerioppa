@@ -15,9 +15,9 @@ if(isset($_POST['user-login']) && isset($_POST['pass-login'])){
                 if (isset($user) && $user['cantidad'] > 0){
                     $_SESSION['username'] = $user_login;
                     $_SESSION['nombre'] = $user['nombre'];
-                    header('location: ../../index.php');
+                    header('location: index.php');
                 }else{
-                    header('location: ../../login.php?rta=500');
+                    header('location: login.php?rta=500');
                 }
             } while ($user = $resultado->fetch_assoc());
         }else{
@@ -28,6 +28,6 @@ if(isset($_POST['user-login']) && isset($_POST['pass-login'])){
         echo "ocurrio un error al validar el usuario" . $e;
     }
 }else{
-    header('location: ../../login.php');
+    header('location: login.php');
 }
 ?>

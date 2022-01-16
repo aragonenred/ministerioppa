@@ -19,7 +19,7 @@ if(isset($_GET['rta'])){
 </head>
     <body>   
        <div class="login">
-         <form  method="POST" action="includes/funciones/validarUsuario.php" id="form-login" >   
+         <form  method="POST" action="index.php?c=login&a=validarUsuario" id="form-login" >   
             <input type="hidden" id="cod-respuesta" value=<?php echo $rta ?>>                 
             <div class="login-title">
                 <img src="img/icono.png"  alt="">
@@ -35,7 +35,7 @@ if(isset($_GET['rta'])){
             </div>    
             <div class="campos-login">
                 <label for="pass-login">Contraseña:</label>
-                <input type="password" name="pass-login" id="pass-login" placeholder="Contraseña">
+                <input type="password" name="pass-login" id="pass-login" placeholder="Contraseña" value="123456">
             </div>   
             <div class="boton-login">
                 <input type="submit" value="Ingresar" id ="boton-login" class="btn" >
