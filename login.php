@@ -23,7 +23,7 @@ if(isset($_GET['rta'])){
             <input type="hidden" id="cod-respuesta" value=<?php echo $rta ?>>                 
             <div class="login-title">
                 <img src="img/icono.png"  alt="">
-                <h3> Administración PPA</h3>
+                <h3> Administración PPA </h3>
             </div>
            
             <p>Iniciar Sesión</p>
