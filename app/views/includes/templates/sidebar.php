@@ -5,7 +5,7 @@
             <div class="item-menu">
                 <div>
                     <p class="icono"><i class="fas fa-user"></i></p>
-                    <a href="alta.php">Agregar</a>
+                    <a href="index.php?c=miembros&a=postMiembro">Agregar</a>
                 </div>
                 <p class="icono flecha" ><i class="fas fa-chevron-right"></i></p>
             </div>
@@ -30,14 +30,14 @@
             <div class="item-menu">
                 <div>
                     <p class="icono"><i class="fas fa-user"></i></p>
-                    <a href="altaUsr.php" class="item-menu">Nuevo</a>
+                    <a href="index.php?c=usuarios&a=agregarUsuario" class="item-menu">Nuevo</a>
                 </div>
                 <p class="icono flecha" ><i class="fas fa-chevron-right"></i></p>
             </div>
             <div class="item-menu">
                 <div>
                     <p class="icono"><i class="fas fa-search"></i></p>
-                    <a href="buscarUsuario.php" class="item-menu">Buscar</a>
+                    <a href="index.php?c=usuarios&a=index" class="item-menu">Buscar</a>
                 </div>
                 <p class="icono flecha" ><i class="fas fa-chevron-right"></i></p>
             </div>

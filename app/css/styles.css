@@ -251,7 +251,7 @@ main{
     text-align: center;
 }
 .user-login a i{
-   display: block;
+  /* display: block;*/
 }
 
 .menu-usr{

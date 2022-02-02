@@ -7,7 +7,7 @@
         }
 
         public function getuser($user_login, $pass){
-            $sql = "SELECT COUNT(*) as cantidad, nombre from usuarios where usuario = '" . $user_login ."' and Password = '" . $pass . "' group by nombre LIMIT 1";
+            $sql = "SELECT usuario, password, nombre from usuarios where usuario = '" . $user_login ."' and Password = '" . $pass . "' LIMIT 1";
 
             try {
                 $resultado = $this->db->query($sql);

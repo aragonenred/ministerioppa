@@ -22,8 +22,6 @@
             $controller->$action();
         }else{
             $action = DEFAULT_ACTION;
-            echo $action;
-            echo $controller;
             $controller->$action();
         }
     }

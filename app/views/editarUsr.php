@@ -1,24 +1,6 @@
 <?php include_once('includes/templates/header.php'); ?>   
 <?php include_once('includes/templates/sidebar.php'); ?>
-<?php include_once('includes/funciones/db.php');
-
-try {
    
-    $sql = "SELECT usuario, nombre FROM usuarios ";
-    $sql .= " WHERE usuario = ?";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $_GET['usuario']);
-    $stmt->execute();
-    $stmt->bind_result($usuario, $nombre);
-
-    
-} catch (\Throwable $th) {
-    echo $th;
-}
-  
-while ($stmt->fetch()) {?>
-    
      <main>
             <section class="buscar" id="buscar">
                 <form class="formulario" id="formulario" action="#">
@@ -28,13 +10,13 @@ while ($stmt->fetch()) {?>
                         <div class="campos">
                             <div class="campo">
                                 <label for="usuario">Usuario</label>
-                                <input type="text" disabled = "true" id="usuario" placeholder="usuario" value="<?php echo $usuario; ?>" >
+                                <input type="text" disabled = "true" id="usuario" placeholder="usuario" value="<?php echo $data['usuario']; ?>" >
                             </div>
                         </div>
                         <div class="campos">
                             <div class="campo">
                                 <label for="usuario">Nombre</label>
-                                <input type="text" id="nombre" placeholder="nombre" value="<?php echo $nombre; ?>" >
+                                <input type="text" id="nombre" placeholder="nombre" value="<?php echo $data['nombre']; ?>" >
                             </div>
                         </div>
                         <div class="campos">
@@ -72,5 +54,5 @@ while ($stmt->fetch()) {?>
 
         </main>
 
-        <?php } //While ?> 
+
 <?php include_once('includes/templates/footer.php'); ?>

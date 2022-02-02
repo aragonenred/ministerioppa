@@ -4,7 +4,7 @@
         $user_login = $_SESSION['username'];
     }
     if(!isset($user_login)){
-        header('location: login.php');
+        header('location: index.php?c=login&a=index');
         die();
     }
 ?>
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=PT+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/miembrosppa/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/c21db70a60.js" crossorigin="anonymous"></script>
     <title>Pasion</title>
 </head>
@@ -36,9 +36,9 @@
                     </div>
                     <div class="user-login" id="user-login">
                         <i class="fas fa-user"></i></i>
-                        <a href="#"><?php echo $_SESSION['nombre']; ?><i class="fas fa-chevron-down"></i></a>
+                        <a href="#"><?php echo $_SESSION['nombre']; ?> <i class="fas fa-chevron-down"></i></a>
                         <div class="menu-usr campo-oculto" id="menu-usr">
-                        <a href="exit.php" class="">Cerrar Sesion</a>
+                        <a href="index.php?c=login&a=logout" class="">Cerrar Sesion</a>
                     </div>
                     </div>
                     

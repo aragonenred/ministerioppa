@@ -18,22 +18,26 @@
                     $resultado = $login->getUser($user_login, $pass);
                     
                     if($resultado){
-                        foreach($resultado as $user){
-                            if($user['cantidad']== '1'){
-                                $_SESSION['username'] = $user_login;
-                                $_SESSION['nombre'] = $user['nombre'];
-                                header('location: index.php?c=miembros&a=index');
-                            }else{
-                                header('location: index.php?c=login&a=index&rta=500');
-                            }
-                        }
+                        $_SESSION['username'] = $user_login;
+                        $_SESSION['nombre'] = $resultado['nombre'];
+                        header('location: index.php?c=miembros&a=index');
+                    }else{
+                        header('location: index.php?c=login&a=index&rta=500');
                     }
+                    
                 }catch(\Exception $e){
                     echo "ocurrio un error al validar el usuario" . $e;
                 }
             }else{
                 header('location: index.php?c=login&a=index');
             }
+        }
+
+        public function logout(){
+            session_start();
+            session_destroy();
+            header("location:index.php");
+            exit();
         }
 
 

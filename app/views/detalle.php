@@ -8,10 +8,10 @@
                     <p><?php echo $data['direccion'] . ', ' . $data['localidad'] . ', ' . $data['provincia'] . ' (cp' . $data['cp'] . ')'; ?></p>
                     <div class="foto-contacto">
                         <?php
-                        if($data['foto64']){?>
+                        if(isset($data['foto64'])){?>
                             <img src= "<?php echo $data['foto64'] ?> "alt="silueta.png">
                             <?php }else{
-                                if ($data['foto']){?>
+                                if (isset($data['foto'])    ){?>
                                     <img src="data:image/jpeg;base64,<?php echo base64_encode($data['foto'])?>" alt="silueta.png"> 
                                 <?php }else{?>
                                         <img src= "img/silueta.png" alt="silueta.png">

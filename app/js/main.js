@@ -228,9 +228,9 @@
                     for(i=2; i <= elementos; i++){
                         tabla.childNodes.item(2).remove(); 
                     }
-                    console.log(xhr.responseText);
+                    //console.log(xhr.responseText);
                     resultado = JSON.parse(xhr.responseText); 
-                    console.log(resultado.personas);
+                    
                     if(resultado.personas){
                         for(i=0; i < resultado.personas.length; i++){
                             row = document.createElement('tr');
@@ -326,9 +326,10 @@
             if(validarCamposNumerico() && validarCampos()){
                 boton_agregar.setAttribute('disabled', 'true');
                 const xhr =  new XMLHttpRequest();
-                xhr.open('POST','miembro.php', true);
+                xhr.open('POST','index.php?c=miembros&a=postMiembro', true);
                 xhr.onload = function () {
                     if (this.status == 200){
+                        console.log(xhr.responseText);
                         $respuesta = JSON.parse(xhr.responseText);
                         mostrarMensaje($respuesta.descripcion, $respuesta.codigo);
                         if($respuesta.codigo == '200'){
@@ -336,8 +337,8 @@
                             //formulario.reset();
                             //foto.setAttribute('src', 'img/silueta.png');
                             setTimeout(() => {
-                                location.replace('alta.php');
-                            }, 3000); 
+                                location.replace('index.php?c=miembros&a=postMiembro');
+                            }, 2000); 
 
                         }else{
                             boton_agregar.setAttribute('disabled', 'false');
@@ -360,7 +361,7 @@
             console.log("borrar: " + id);
 
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'miembro.php', true);
+            xhr.open('POST', 'index.php?c=miembros&a=deleteMiembro', true);
             xhr.onload = function(){
 
                 if(this.status == 200){
@@ -384,7 +385,7 @@
             infoUsuario.append('nombre', nombre.value);
 
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'usuario.php');
+            xhr.open('POST', 'index.php?c=usuarios&a=getUsuarios');
             xhr.onload = function(){
                 if(this.status == 200){
                     tabla = document.querySelector('#tabla-buscar tbody');
@@ -396,16 +397,14 @@
                     }
                     for(i=2; i <= elementos; i++){
                         tabla.childNodes.item(2).remove(); 
-                    }
-
+                    }     
                     resultado = JSON.parse(xhr.responseText); 
-                    console.log(resultado.usuarios);
                     if(resultado.usuarios){
                         for(i=0; i < resultado.usuarios.length; i++){
                             row = document.createElement('tr');
                             row.innerHTML += '<td><span>' + resultado.usuarios[i].usuario + '</span></td> ';
                             row.innerHTML += '<td><span>' + resultado.usuarios[i].nombre + '</span></td> ';
-                            row.innerHTML += '<td class="tb-icono"><a href="editarUsr.php?usuario='+ resultado.usuarios[i].usuario + '" class="td-editar"><i class="far fa-edit"></i></a></td>';
+                            row.innerHTML += '<td class="tb-icono"><a href="index.php?c=usuarios&a=editarUsuario&usuario='+ resultado.usuarios[i].usuario + '" class="td-editar"><i class="far fa-edit"></i></a></td>';
                             row.innerHTML += '<td class="tb-icono"><a href=""  class="td-borrar-usr" data-id="' + resultado.usuarios[i].usuario + '"><i class="far fa-trash-alt"></i></a></td>';
                             tabla.appendChild(row);
                         } 
@@ -430,15 +429,16 @@
             }   
             boton_modificar_usr.setAttribute('disabled', 'true');     
             const xhr = new XMLHttpRequest();
-            xhr.open('POST','usuario.php');
+            xhr.open('POST','index.php?c=usuarios&a=editarUsuario');
             xhr.onload = function(){
                 if (this.status == 200){
+                    console.log(xhr.responseText);
                     $respuesta = JSON.parse(xhr.responseText);
                     mostrarMensaje($respuesta.descripcion, $respuesta.codigo);
                     console.log($respuesta);
                     if($respuesta.codigo == '200'){
                         setTimeout(() => {
-                            location.replace('buscarUsuario.php');
+                            location.replace('index.php?c=usuarios&a=index');
                         }, 3000); 
 
                     }else{
@@ -460,14 +460,14 @@
             boton_agregar_usr.setAttribute('disabled', 'true');
 
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'usuario.php');
+            xhr.open('POST', 'index.php?c=usuarios&a=agregarUsuario');
             xhr.onload = function(){
                 if(this.status ==200){
                     $respuesta = JSON.parse(xhr.responseText);
                     mostrarMensaje($respuesta.descripcion, $respuesta.codigo);
                     if($respuesta.codigo == '200'){
                         setTimeout(() => {
-                            location.replace('altaUsr.php');
+                            location.replace('index.php?c=usuarios&a=index');
                         }, 3000); 
                     }else{
                         boton_agregar_usr.removeAttribute('disabled');
