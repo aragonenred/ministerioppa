@@ -202,7 +202,7 @@
                 if($lastId){ //si se guardó, guardo la foto
                     
                     if($post['foto']['default'] == false){
-                        $filename= 'img/' .$lastId.'.jpg';
+                        $filename= 'img/fotos' .$lastId.'.jpg';
 
                         move_uploaded_file($post['foto']['name'], $filename );
                         $sql = "UPDATE miembros SET fotourl ='".$filename."' WHERE IDMiembro =".$lastId;
