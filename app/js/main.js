@@ -9,6 +9,7 @@
  
        /**Informacion Personal */
         const foto = document.querySelector('#photo-input');
+        const fotoContacto = document.querySelector("#foto-contacto"); 
         const idmiembro = document.querySelector("#idmiembro");
         const dni = document.querySelector('#dni');
         const nombre = document.querySelector('#nombre');
@@ -165,7 +166,7 @@
                 if(this.files[0].size > 10485760){
                     alert("Selecciona una imagen que se menor a 10MB de tamaño");
                 }else{ 
-                    setURL64(this.files, foto);  
+                    setURL64(this.files, fotoContacto);  
                 }
             });
         }

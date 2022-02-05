@@ -11,8 +11,11 @@
 
                            <div class="center photo-upload">
                                 <label for="photo-input">
-                                    <img class="foto-contacto" id="foto-contacto"  src="<?php echo $data['foto']; ?>" alt="silueta.png">
-                                             
+                                    <?php if($data['foto'] <> ""){?>
+                                         <img class="foto-contacto" id="foto-contacto"  src="<?php echo $data['foto']; ?>" alt="silueta.png">
+                                    <?php }else{ ?>
+                                        <img class="foto-contacto" id="foto-contacto"  src="img/default.png" alt="silueta.png">
+                                    <?php } ?>       
                                 </label>
                                 <input id="photo-input" type="file">
                             </div>  
