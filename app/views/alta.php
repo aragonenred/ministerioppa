@@ -2,7 +2,7 @@
 <?php include_once('includes/templates/sidebar.php'); ?>
      <main>
             <section class="buscar" id="buscar">
-                <form class="formulario" id="formulario"  action="#">
+                <form class="formulario" id="formulario"  action="#" method="POST" enctype="multipart/form-data">
                     <div>
                         <div class="separador-form">
                             <h1>Información personal</h1>
@@ -10,7 +10,7 @@
                                 <label for="photo-input">
                                     <img class="foto-contacto" id="foto-contacto"  src="img/silueta.png" alt="silueta.png"> 
                                 </label>
-                                <input id="photo-input" type="file">
+                                <input id="photo-input" type="file" name="foto">
                             </div>                               
                                     <div class="campos">
                                         <div class="campo">

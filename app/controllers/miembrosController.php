@@ -58,13 +58,15 @@
             }
         }
 
+
+
         public function putMiembro(){
             include_once('models/miembros_model.php');
             $miembro = new miembros_model();
 
             /**Datos Personales */
             $post['idmiembro'] = $_POST['idmiembro'];
-            $post['foto'] = $_POST['foto'];
+            $post['foto'] = $_FILES['foto']['name'];
             if($_POST['dni']){ $post['dni'] = $_POST['dni'];}else{ $post['dni'] = '';}
             if($_POST['nombre']){$post['nombre'] = $_POST['nombre'];}else{$post['nombre'] = '';}
             if($_POST['apellido']){$post['apellido'] = $_POST['apellido'];}else{$post['apellido'] = '';}
@@ -122,7 +124,15 @@
                 $miembro = new miembros_model();
     
                 /**Datos Personales */
-                if(isset($_POST['foto'])){$post['foto'] = $_POST['foto'];}else{$post['foto']='';}
+                //if(isset($_POST['foto'])){$post['foto'] = $_POST['foto'];}else{$post['foto']='';}
+                if(isset($_FILES['foto']['tmp_name'])){
+                    $post['foto']['name'] = $_FILES['foto']['tmp_name']; 
+                    $post['foto']['default'] = false;
+                }else{
+                    $post['foto']['name']='img/default.png';
+                    $post['foto']['default'] = true;
+                }
+
                 if(isset($_POST['dni'])){ $post['dni'] = $_POST['dni'];}else{ $post['dni'] = '';}
                 if($_POST['nombre']){$post['nombre'] = $_POST['nombre'];}else{$post['nombre'] = '';}
                 if($_POST['apellido']){$post['apellido'] = $_POST['apellido'];}else{$post['apellido'] = '';}

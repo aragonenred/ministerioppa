@@ -8,7 +8,7 @@
         const boton_login = document.querySelector('#user-login a');
  
        /**Informacion Personal */
-        const foto = document.querySelector('#foto-contacto');
+        const foto = document.querySelector('#photo-input');
         const idmiembro = document.querySelector("#idmiembro");
         const dni = document.querySelector('#dni');
         const nombre = document.querySelector('#nombre');
@@ -229,7 +229,8 @@
                         tabla.childNodes.item(2).remove(); 
                     }
                     //console.log(xhr.responseText);
-                    resultado = JSON.parse(xhr.responseText); 
+
+                    resultado = JSON.parse(xhr.responseText);
                     
                     if(resultado.personas){
                         for(i=0; i < resultado.personas.length; i++){
@@ -264,7 +265,7 @@
             const infoPersona = new FormData();
             //Informacion Personal
             infoPersona.append('accion','post');
-            infoPersona.append('foto', foto.getAttribute('src'));
+            infoPersona.append('foto', foto.files[0]);
             infoPersona.append('dni', dni.value);
             infoPersona.append('nombre',nombre.value);
             infoPersona.append('apellido', apellido.value);

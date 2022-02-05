@@ -64,16 +64,17 @@
 
         public function getMiembro($id){
             try {   
-                $sql = "SELECT idMiembro, dni, nombre, apellido, direccion, localidad, provincia, cpostal, nacionalidad, fechaNacimiento, sexo, EstadoCivil, conyuge, conyugeCreyente, hijos, oficio, telefono, celular, mail, miembro, Fmiembro, bautizado, FBautismo, BES, fconversion, iglesiaProviene, estudios, estudiosb, actividades, observaciones FROM miembros ";
+                $sql = "SELECT idMiembro, dni, nombre, apellido, direccion, localidad, provincia, cpostal, nacionalidad, fechaNacimiento, sexo, EstadoCivil, conyuge, conyugeCreyente, hijos, oficio, telefono, celular, mail, miembro, Fmiembro, bautizado, FBautismo, BES, fconversion, iglesiaProviene, estudios, estudiosb, actividades, observaciones, fotourl FROM miembros ";
                 $sql .= " WHERE idMiembro = ?";
-            
+
                 $stmt = $this->db->prepare($sql);
                 $stmt->bind_param("i", $id);
                 $stmt->execute();
-                $stmt->bind_result($idmiembro, $dni, $nombre, $apellido, $direccion, $localidad, $provincia, $cp, $nacionalidad, $nacimiento, $sexo, $estadocivil, $conyuge, $conyugeC, $hijos, $oficio, $telefono, $celular, $mail, $miembro, $fechaMiembro, $bautizado, $fechaB, $BES, $fconversion, $iglesia, $estudios, $estudiosb, $actividades, $observaciones);
-                
+                $stmt->bind_result($idmiembro, $dni, $nombre, $apellido, $direccion, $localidad, $provincia, $cp, $nacionalidad, $nacimiento, $sexo, $estadocivil, $conyuge, $conyugeC, $hijos, $oficio, $telefono, $celular, $mail, $miembro, $fechaMiembro, $bautizado, $fechaB, $BES, $fconversion, $iglesia, $estudios, $estudiosb, $actividades, $observaciones, $foto);
+
                 $datos = array();
                 while ($stmt->fetch()) {
+                
                     $datos = Array(
                         'idmiembro' =>$idmiembro, 
                         'dni'=>$dni, 
@@ -104,11 +105,12 @@
                         'estudios'=> utf8_encode($estudios),
                         'estudiosb'=> utf8_encode($estudiosb),
                         'actividades'=> utf8_encode($actividades),
-                        'observaciones'=> utf8_encode($observaciones)
-                        //'foto'=> $foto,
+                        'observaciones'=> utf8_encode($observaciones),
+                        'foto'=> utf8_encode($foto)
                         //'foto64'=> $foto64
-                    );   
+                    );  
                 }   
+
                 return $datos;
 
             } catch (\Throwable $th) {
@@ -117,20 +119,20 @@
         }
 
         public function update($post){          
-            $sql = "UPDATE miembros SET dni = ?, nombre = ? , apellido = ? , direccion = ? , localidad = ? , provincia = ?, cpostal = ?, nacionalidad = ?, fechaNacimiento = ?, sexo = ?, EstadoCivil = ?, conyuge = ?, conyugeCreyente = ?, hijos = ?, oficio = ?, telefono = ?, celular = ?, mail = ?, miembro = ?, Fmiembro = ?, bautizado = ?, FBautismo = ?, BES = ?, fconversion = ?, iglesiaProviene = ?, estudios = ?, estudiosb = ?, actividades = ?, observaciones = ? ";
+            $sql = "UPDATE miembros SET dni = ?, nombre = ? , apellido = ? , direccion = ? , localidad = ? , provincia = ?, cpostal = ?, nacionalidad = ?, fechaNacimiento = ?, sexo = ?, EstadoCivil = ?, conyuge = ?, conyugeCreyente = ?, hijos = ?, oficio = ?, telefono = ?, celular = ?, mail = ?, miembro = ?, Fmiembro = ?, bautizado = ?, FBautismo = ?, BES = ?, fconversion = ?, iglesiaProviene = ?, estudios = ?, estudiosb = ?, actividades = ?, observaciones = ?, fotourl = ? ";
             $sql .= " WHERE IDMiembro = ?";
             try {
                 $stmt = $this->db->prepare($sql);
-                $stmt->bind_param("isssssissssssisssssssssssssssi", $post['dni'], $post['nombre'], $post['apellido'], $post['direccion'], $post['localidad'], $post['provincia'], $post['cp'], $post['nacionalidad'], $post['nacimiento'], $post['sexo'], $post['estadocivil'], $post['conyuge'], $post['conyugeC'], $post['hijos'], $post['oficio'], $post['telefono'], $post['celular'], $post['mail'], $post['miembro'], $post['fechaMiembro'], $post['bautizado'], $post['fechaB'], $post['BES'], $post['fconversion'], $post['iglesia'], $post['estudios'], $post['estudiosb'], $post['actividades'], $post['observaciones'], $post['idmiembro']);   
+                $stmt->bind_param("isssssissssssissssssssssssssssi", $post['dni'], $post['nombre'], $post['apellido'], $post['direccion'], $post['localidad'], $post['provincia'], $post['cp'], $post['nacionalidad'], $post['nacimiento'], $post['sexo'], $post['estadocivil'], $post['conyuge'], $post['conyugeC'], $post['hijos'], $post['oficio'], $post['telefono'], $post['celular'], $post['mail'], $post['miembro'], $post['fechaMiembro'], $post['bautizado'], $post['fechaB'], $post['BES'], $post['fconversion'], $post['iglesia'], $post['estudios'], $post['estudiosb'], $post['actividades'], $post['observaciones'], $post['foto'], $post['idmiembro']);   
                 $stmt->execute();
 
-                //Guardar Foto
+                /*Guardar Foto
                 $sql = "UPDATE miembros SET Foto64 = ? WHERE IDMiembro =" . $post['idmiembro'] ;
                 $stmt = $this->db->prepare($sql);
                 $null = NULL;
                 $stmt->bind_param("b", $null);
                 $stmt->send_long_data(0, $post['foto']);
-                $stmt->execute();
+                $stmt->execute(); */
 
                 $respuesta = array();
                 if ($this->db->affected_rows) {
@@ -141,7 +143,7 @@
                 }else{
                     $respuesta = array(
                     'codigo' => '500',
-                    'descripcion' => 'No se pudo actualizar el registro',
+                    'descripcion' => 'No se pudo actualizar el registro. '.$this->db->error,
                     'affected_rows' => $this->db->affected_rows );
                 }
             } catch (\Throwable $th) {
@@ -170,7 +172,7 @@
                 }else{
                     $respuesta = array(
                         'codigo' => '500',
-                        'descripcion' => 'No se pudo borrar el registro',
+                        'descripcion' => 'No se pudo borrar el registro. ' .$this->db->error,
                         'affected_rows' => $this->db->affected_rows );
                 }
             } catch (\Throwable $th) {
@@ -196,26 +198,30 @@
                 $stmt->bind_param("isssssissssssisssssssssssssss", $post['dni'], $post['nombre'], $post['apellido'], $post['direccion'], $post['localidad'], $post['provincia'], $post['cp'], $post['nacionalidad'], $post['nacimiento'], $post['sexo'], $post['estadocivil'], $post['conyuge'], $post['conyugeC'], $post['hijos'], $post['oficio'], $post['telefono'], $post['celular'], $post['mail'], $post['miembro'], $post['fechaMiembro'], $post['bautizado'], $post['fechaB'], $post['BES'], $post['fconversion'], $post['iglesia'], $post['estudios'], $post['estudiosb'], $post['actividades'], $post['observaciones']);   
                 $stmt->execute();
                 $lastId = $this->db->insert_id;
-    
-                if($lastId){
-                    //Guardar Foto
-                $sql = "UPDATE miembros SET Foto64 = ? WHERE IDMiembro =" . $lastId ;
-                $stmt = $this->db->prepare($sql);
-                $null = NULL;
-                $stmt->bind_param("b", $null);
-                $stmt->send_long_data(0, $post['foto']);
-                $stmt->execute();
+                
+                if($lastId){ //si se guardó, guardo la foto
+                    
+                    if($post['foto']['default'] == false){
+                        $filename= 'img/' .$lastId.'.jpg';
+
+                        move_uploaded_file($post['foto']['name'], $filename );
+                        $sql = "UPDATE miembros SET fotourl ='".$filename."' WHERE IDMiembro =".$lastId;
+                        $this->db->query($sql);
+                    }
+                    
     
                 $respuesta = array(
                             'codigo' => '200',
                             'descripcion' => 'Registro Ingresado',
-                            'lastId' => $lastId );
+                            'lastId' => $lastId);
                 }else{
+                    
                 $respuesta = array(
                             'codigo' => '500',
-                            'descripcion' => 'No se pudo grabar registro',
+                            'descripcion' => 'No se pudo grabar registro. ' .$this->db->error ,
                             'lastId' => '' );
                 }
+                
                 
                 return $respuesta;
 

@@ -11,16 +11,8 @@
 
                            <div class="center photo-upload">
                                 <label for="photo-input">
-                                    <?php
-                                        if($data['foto64']){?>
-                                            <img class="foto-contacto" id="foto-contacto"  src= "<?php echo $data['foto64'] ?> "alt="silueta.png">
-                                       <?php }else{
-                                                 if ($data['foto']){?>
-                                                    <img class="foto-contacto" id="foto-contacto"  src="data:image/jpeg;base64,<?php echo base64_encode($data['foto'])?>" alt="silueta.png"> 
-                                          <?php }else{?>
-                                              <img class="foto-contacto" id="foto-contacto"  src= "img/silueta.png" alt="silueta.png">
-                                         <?php }
-                                        } ?>       
+                                    <img class="foto-contacto" id="foto-contacto"  src="<?php echo $data['foto']; ?>" alt="silueta.png">
+                                             
                                 </label>
                                 <input id="photo-input" type="file">
                             </div>  

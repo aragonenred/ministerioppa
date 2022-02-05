@@ -7,16 +7,11 @@
                     <h1><?php echo $data['nombre'] . ' ' . $data['apellido']; ?></h1>
                     <p><?php echo $data['direccion'] . ', ' . $data['localidad'] . ', ' . $data['provincia'] . ' (cp' . $data['cp'] . ')'; ?></p>
                     <div class="foto-contacto">
-                        <?php
-                        if(isset($data['foto64'])){?>
-                            <img src= "<?php echo $data['foto64'] ?> "alt="silueta.png">
-                            <?php }else{
-                                if (isset($data['foto'])    ){?>
-                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($data['foto'])?>" alt="silueta.png"> 
-                                <?php }else{?>
-                                        <img src= "img/silueta.png" alt="silueta.png">
-                                     <?php }
-                        } ?> 
+                        <?php if($data['foto'] <> ""){ ?>
+                            <img src= "<?php echo $data['foto'];?>" alt="siluetas.png">
+                        <?php }else{ ?>
+                            <img src= "img/default.png" alt="silueta.png">
+                        <?php } ?>
                     </div> 
                 </div>
                 <div class="detalle-persona col2-60-40">
